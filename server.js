@@ -15,26 +15,22 @@ io.sockets.on('connection', newConnection);
 
 function newConnection(socket) {
     console.log('new connection ' + socket.id);
-    socket.on('disconnet', dis);
-    socket.on('mouse', mouseMessage);
-    socket.on('bot', botMessage);
+    socket.on('disconnet', disconnect);
+
+    socket.on('machine', machineMessage);
+    socket.on('removemachine', removeMachine);
     //   console.log(socket);
-function dis() {
-    socket.broadcast.emit("disbot", { id: socket.id } );
-}
-    function botMessage(data) {
-        console.log(data);
-        socket.broadcast.emit("botdata", data);
-        //        console.log("bot");
-        //  console.log(data);
-
+    function disconnect() {
+        socket.broadcast.emit("removeclient", { id: socket.id });
+    }
+    function machineMessage(data) {
+      //  console.log(data);
+        socket.broadcast.emit("updateremotemachines", data);
     }
 
-
-    function mouseMessage(data) {
-        console.log("mouse");
-        //   socket.broadcast.emit("mouse", data);
-        console.log(data);
-
+    function removeMachine(data) {
+        console.log("removemachine: " + data.machineid);
+        socket.broadcast.emit("removemachine", data);
     }
+
 }
