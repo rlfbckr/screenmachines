@@ -20,7 +20,10 @@ var machineConfig = {
   color1: [255, 255, 255],
   color1Opacity: 1,
   color2: [0, 0, 0],
-  color2Opacity: 1
+  color2Opacity: 1,
+  pensize: 1,
+  pencolor: [255,255,255],
+  pendown: true
 
 }
 
@@ -33,9 +36,9 @@ function setup() {
 
 
 function draw() {
-  flatlandlink.clearScreen();
+
   flatlandlink.update();
-  flatlandlink.drawDebugInformation();
+
 }
 
 class Machine extends defaultMachine {
@@ -43,18 +46,17 @@ class Machine extends defaultMachine {
     // initialize your machine
     this.type = MachineType.RECT;
     this.rotationspeed = random(-0.05, 0.05);
+    this.speed = 20;
   }
   move() {
     // how does your machine move 
     this.rotation += this.rotationspeed;
-    this.pos.x += random(-this.speed * 1, this.speed * 1);
-    this.pos.y += random(-this.speed * 1, this.speed * 1);
+    this.pos.x += random(-this.speed , this.speed );
+    this.pos.y += random(-this.speed , this.speed );
     this.size = map(this.age(), 0, machineConfig.lifetime, machineConfig.maxSize, machineConfig.minSize);
+
   }
-  draw() {
-    // what is your machine drawing while moving
-    // this.point(this.pos.x,this.pos.y);
-  }
+
 }
 
 
@@ -79,6 +81,11 @@ function initGui() {
   guiMachineFolder.add(machineConfig, 'color1Opacity', 0, 1);
   guiMachineFolder.addColor(machineConfig, 'color2');
   guiMachineFolder.add(machineConfig, 'color2Opacity', 0.0, 1.0);
+  guiMachineFolder.add(machineConfig, 'pensize', 0.1, 20.0);
+
+  guiMachineFolder.addColor(machineConfig, 'pencolor');
+  guiMachineFolder.add(machineConfig, 'pendown');
+
   guiMachineFolder.open();
 }
 

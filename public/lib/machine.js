@@ -49,7 +49,12 @@ class flatlandLink {
         this.overlayCanvas = createGraphics(windowWidth, windowHeight);
         this.overlayCanvas.textFont(this.monofont);
         this.overlayCanvas.textSize(12);
+
+        this.drawingCanvas;
+        this.drawingCanvas = createGraphics(windowWidth, windowHeight);
+        this.drawingCanvas.background(30, 30, 30);
         this.spawn();
+
     }
 
     spawn() {
@@ -61,21 +66,22 @@ class flatlandLink {
         }
     }
 
-     drawDebugInformation() {
+    drawDebugInformation() {
         if (flatlandConfig.debug) {
             this.overlayCanvas.clear();
             this.overlayCanvas.fill(255, 255, 0);
             var _debugmessage_ = 'debug\n' +
                 '-------------------------------\n' +
                 'version  : ' + _VERSION + '\n' +
+                'fps      : ' + frameRate() + '\n' +
                 'myID     : ' + socket.id + '\n' +
                 '#local   : ' + this.machineCountLocal() + "\n" +
                 '#remote  : ' + this.machineCountRemote() + "\n";
-    
-                this.overlayCanvas.text(_debugmessage_, 20, 20);
+
+            this.overlayCanvas.text(_debugmessage_, 20, 20);
             image(this.overlayCanvas, -width / 2, -height / 2);
         }
-    
+
     }
 
     removeMachine(data) {
@@ -110,6 +116,8 @@ class flatlandLink {
     }
 
     update() {
+        this.clearScreen();
+        image(this.drawingCanvas, -width / 2, -height / 2);
         if (this.machinesLocal.length < machineConfig.maxCount) {
             this.spawn();
 
@@ -118,6 +126,7 @@ class flatlandLink {
             if (!this.machinesLocal[i].isAlive()) {
                 this.machinesLocal.splice(i, 1);
             } else {
+                this.machinesLocal[i].premove();
                 this.machinesLocal[i].move();
                 this.machinesLocal[i].update();
                 this.machinesLocal[i].display();
@@ -135,7 +144,7 @@ class flatlandLink {
                     this.machinesRemote[key].display();
                 }
                 */
-
+        this.drawDebugInformation();
     }
 
     machineCountRemote() {
@@ -159,9 +168,12 @@ class defaultMachine {
         this.alive = true;
         this.type = MachineType.RECT;
         this.pos = createVector(random(-width / 2, width / 2), random(-height / 2, height / 2));
+        this.posPrevious = createVector(this.pos.x, this.pos.y);
         this.size = 100;
         this.rotation = random(PI);
-
+        this.pendown = true;
+        this.pencolor = color(255, 255, 255, 128);
+        this.pensize = 2.0;
         this.color1 = color(machineConfig.color1[0], machineConfig.color1[1], machineConfig.color1[2], machineConfig.color1Opacity * 255);
         this.color2 = color(machineConfig.color2[0], machineConfig.color2[1], machineConfig.color2[2], machineConfig.color2Opacity * 255);
         this.speed = 1;
@@ -198,28 +210,43 @@ class defaultMachine {
 
     set(_x, _y, _size) {
         this.lastupdate = millis();
-        this.pos.x = _x;
-        this.pos.y = _y;
+        if (!this.local) {
+            this.posPrevious.x = this.pos.x;
+            this.posPrevious.y = this.pos.y;
+            this.pos.x = _x;
+            this.pos.y = _y;
+        }
         this.size = _size;
     }
 
     move() {
+        this.updatePos()
         this.pos.x += random(-this.speed, this.speed);
         this.pos.y += random(-this.speed, this.speed);
         this.size = map(this.age(), 0, machineConfig.lifetime, machineConfig.maxSize, machineConfig.minSize);
 
     }
-    draw() {
 
+
+    penUp() {
+        this.pendown = false;
     }
-
+    penDown() {
+        this.pendown = true;
+    }
     age() {
         return millis() - this.born;
     }
     lastupdated() {
         return millis() - this.lastupdate;
     }
+    premove() {
+        if (this.local) {
+            this.posPrevious.x = this.pos.x;
+            this.posPrevious.y = this.pos.y;
 
+        }
+    }
     update() {
 
         if (this.local == true && socket.id != undefined) {
@@ -266,9 +293,19 @@ class defaultMachine {
         this.color1 = color(machineConfig.color1[0], machineConfig.color1[1], machineConfig.color1[2], machineConfig.color1Opacity * 255);
         this.color2 = color(machineConfig.color2[0], machineConfig.color2[1], machineConfig.color2[2], machineConfig.color2Opacity * 255);
         this.lastupdate = millis();
+        this.pencolor = color(machineConfig.pencolor[0], machineConfig.pencolor[1], machineConfig.pencolor[2]);
+        this.pensize = machineConfig.pensize;
+        this.pendown = machineConfig.pendown;
+        if (this.pendown) {
+            flatlandlink.drawingCanvas.stroke(this.pencolor);
+            flatlandlink.drawingCanvas.strokeWeight(this.pensize);
+            flatlandlink.drawingCanvas.line(this.posPrevious.x + width / 2, this.posPrevious.y + height / 2,
+                this.pos.x + width / 2, this.pos.y + height / 2);
+        }
 
     }
-    _drawMachine() {
+    _displayMachine() {
+        strokeWeight(1);
         //console.log(this.type);
         if (this.type == MachineType.CIRCLE) {
             push();
@@ -283,25 +320,27 @@ class defaultMachine {
             translate(this.pos.x, this.pos.y);
             rotateZ(this.rotation);
 
-            rect(0, 0, this.size, this.size);
+            rect(0, 0, this.size, this.size); this
             pop();
         }
     }
+
+
+
+
     display() {
         if (this.isAlive()) {
             fill(this.color1);
             stroke(this.color2)
+            this._displayMachine();
+            fill(255);
             if (this.local == true) {
-
-                this._drawMachine();
                 if (flatlandConfig.debug) {
-                    fill(255);
                     text("LOCAL:\n" + socket.id + "\n" + this.machineid, this.pos.x, this.pos.y);
                 }
             } else {
-                this._drawMachine();
+                this._displayMachine();
                 if (flatlandConfig.debug) {
-                    fill(255);
                     text("REMOTE\n: " + this.socketid + "\n" + this.machineid, this.pos.x, this.pos.y);
                 }
             }
