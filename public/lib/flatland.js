@@ -58,12 +58,15 @@ class flatlandLink {
     }
 
     spawn() {
-        this.machinesLocal.push(new Machine(this.genRandomMachineID(), true));
+        this.machinesLocal.push(new Machine(this.genRandomMachineID(),random(-width / 2, width / 2), random(-height / 2, height / 2),100, true));
     }
+
     clearScreen() {
+        
         if (flatlandConfig.clearscreen) {
             background(flatlandConfig.backgroundcolor[0], flatlandConfig.backgroundcolor[1], flatlandConfig.backgroundcolor[2]);
         }
+        
     }
 
     drawDebugInformation() {
@@ -102,16 +105,20 @@ class flatlandLink {
             this.machinesRemote[data.machineid].setColor1(data.color1);
             this.machinesRemote[data.machineid].setColor2(data.color2);
             this.machinesRemote[data.machineid].setRotation(data.rotation);
+            this.machinesRemote[data.machineid].setPen(data.pencolor, data.pensize, data.pendown);
+
 
         } else {
             //console.log("new");
-            this.machinesRemote[data.machineid] = new Machine(data.machineid, false);
+            this.machinesRemote[data.machineid] = new Machine(data.machineid,data.pos.x, data.pos.y, data.size, false);
             this.machinesRemote[data.machineid].setSocketID(data.socketid);
             this.machinesRemote[data.machineid].setMachineID(data.machineid);
-            this.machinesRemote[data.machineid].set(data.pos.x, data.pos.y, data.size);
+            //this.machinesRemote[data.machineid].set(data.pos.x, data.pos.y, data.size);
             this.machinesRemote[data.machineid].setColor1(data.color1);
             this.machinesRemote[data.machineid].setColor2(data.color2);
             this.machinesRemote[data.machineid].setRotation(data.rotation);
+            this.machinesRemote[data.machineid].setPen(data.pencolor, data.pensize, data.pendown);
+
         }
     }
 
@@ -136,6 +143,7 @@ class flatlandLink {
             if (!this.machinesRemote[key].isAlive() || this.machinesRemote[key].lastupdated() > 2000) {
                 delete this.machinesRemote[key];
             } else {
+                this.machinesRemote[key]._drawOnCanvas();
                 this.machinesRemote[key].display();
             }
         }
@@ -163,13 +171,13 @@ class flatlandLink {
 
 
 class defaultMachine {
-    constructor(_machineid, _isLocal) {
+    constructor(_machineid, _x,_y,_size,_isLocal) {
         this.t = 0;
         this.alive = true;
         this.type = MachineType.RECT;
-        this.pos = createVector(random(-width / 2, width / 2), random(-height / 2, height / 2));
+        this.pos = createVector(_x,_y);
         this.posPrevious = createVector(this.pos.x, this.pos.y);
-        this.size = 100;
+        this.size = _size;
         this.rotation = random(PI);
         this.pendown = true;
         this.pencolor = color(255, 255, 255, 128);
@@ -183,6 +191,7 @@ class defaultMachine {
         this.born = millis();
         this.setup();
     }
+
     setup() {
 
     }
@@ -207,7 +216,11 @@ class defaultMachine {
     setMachineID(_machineid) {
         this.machineid = _machineid;
     }
-
+    setPen(_c, _size, _pendown) {
+        this.pencolor = color(_c.r, _c.g, _c.b, _c.a);
+        this.pensize = _size;
+        this.pendown = _pendown;
+    }
     set(_x, _y, _size) {
         this.lastupdate = millis();
         if (!this.local) {
@@ -280,7 +293,15 @@ class defaultMachine {
                     socketid: this.socketid,
                     age: this.age(),
                     rotation: this.rotation,
-                    machineid: this.machineid
+                    machineid: this.machineid,
+                    pensize: this.pensize,
+                    pendown: this.pendown,
+                    pencolor: {
+                        'r': this.pencolor.levels[0],
+                        'g': this.pencolor.levels[1],
+                        'b': this.pencolor.levels[2],
+                        'a': this.pencolor.levels[3]
+                    }
                 }
                 socket.emit('machine', data);
             }
@@ -293,10 +314,16 @@ class defaultMachine {
         this.color1 = color(machineConfig.color1[0], machineConfig.color1[1], machineConfig.color1[2], machineConfig.color1Opacity * 255);
         this.color2 = color(machineConfig.color2[0], machineConfig.color2[1], machineConfig.color2[2], machineConfig.color2Opacity * 255);
         this.lastupdate = millis();
-        this.pencolor = color(machineConfig.pencolor[0], machineConfig.pencolor[1], machineConfig.pencolor[2]);
-        this.pensize = machineConfig.pensize;
-        this.pendown = machineConfig.pendown;
-        if (this.pendown) {
+        this._drawOnCanvas();
+
+    }
+    _drawOnCanvas() {
+        if (this.local) {
+            this.pencolor = color(machineConfig.pencolor[0], machineConfig.pencolor[1], machineConfig.pencolor[2]);
+            this.pensize = machineConfig.pensize;
+            this.pendown = machineConfig.pendown;
+        }
+        if (this.pendown && (this.posPrevious.x != this.pos.x || this.posPrevious.y != this.pos.x)) {
             flatlandlink.drawingCanvas.stroke(this.pencolor);
             flatlandlink.drawingCanvas.strokeWeight(this.pensize);
             flatlandlink.drawingCanvas.line(this.posPrevious.x + width / 2, this.posPrevious.y + height / 2,
@@ -306,6 +333,8 @@ class defaultMachine {
     }
     _displayMachine() {
         strokeWeight(1);
+        fill(this.color1);
+        stroke(this.color2)
         //console.log(this.type);
         if (this.type == MachineType.CIRCLE) {
             push();
@@ -319,7 +348,6 @@ class defaultMachine {
             push();
             translate(this.pos.x, this.pos.y);
             rotateZ(this.rotation);
-
             rect(0, 0, this.size, this.size); this
             pop();
         }
@@ -330,10 +358,9 @@ class defaultMachine {
 
     display() {
         if (this.isAlive()) {
-            fill(this.color1);
-            stroke(this.color2)
+
             this._displayMachine();
-            fill(255);
+            fill(128);
             if (this.local == true) {
                 if (flatlandConfig.debug) {
                     text("LOCAL:\n" + socket.id + "\n" + this.machineid, this.pos.x, this.pos.y);
