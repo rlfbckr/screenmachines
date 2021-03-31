@@ -1,10 +1,7 @@
 # screenmachines
 
-materialien für den generative gestaltungs kurs "Screen Machines" Ralf Baecker SS 2021
+materialien für den kurs **Screen Machines** (generative gestaltungs) Ralf Baecker SS 2021
 
-##
-- div. beispie
-- FLATLAND server umgebung (Node.js)
-- FLATLAND beispiel client (p5js)
-
-
+- div. beispiele
+- links etc.
+- flatland ist [hier](https://github.com/rlfbckr/flatland)
