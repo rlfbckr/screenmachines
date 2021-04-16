@@ -5,3 +5,11 @@
 * 02 ordnung/unordnung [ noise and randomoness ] ( 2021-04-30 )
 * 03 moving images / animations ( 2021-05-07 )
 * 05 bots and autonomous agents ( 2021-05-14 )
+
+## software umgebung
+* Chrome Browser
+* Visual Studio Code ( https://code.visualstudio.com/ )
+* VS Code extensions:
+  - Live Server
+  - p5js Snippets
+
