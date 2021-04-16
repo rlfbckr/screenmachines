@@ -1,7 +1,5 @@
 /*
-
 	vera molnars quadrat
-
 */
 
 var maxpoints = 4; // wievile punkte
