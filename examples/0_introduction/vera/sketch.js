@@ -3,10 +3,10 @@
 */
 
 var maxpoints = 4; // wievile punkte
-var margin = 100; // rand
+var margin = 100; // wieviel rand
 
 function setup() {
-  createCanvas(600,600);
+  createCanvas(600,600); // wie gross ist die zeichenfläche
 }
 
 function draw() {
