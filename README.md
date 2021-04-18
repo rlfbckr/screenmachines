@@ -1,6 +1,6 @@
-# screenmachines
+# screen machines
 
-materialien für den kurs **Screen Machines** (generative gestaltungs) Ralf Baecker SS 2021
+materialien für den kurs **Screen Machines** (generative gestaltung) Ralf Baecker SS 2021
 
-- div. beispiele [(live demos)](http://screenmachines.rlfbckr.io/examples/)
+- beispiele [(live demos)](http://screenmachines.rlfbckr.io/examples/)
 - flatland ist [hier](https://github.com/rlfbckr/flatland)
