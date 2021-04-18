@@ -1,5 +1,5 @@
 
-const maxpoints = 100;
+const maxpoints = 50;
 var t = -50;
 var c = 0;
 var speed = 0.01;
