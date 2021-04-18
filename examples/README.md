@@ -12,4 +12,5 @@
 * VS Code extensions:
   - Live Server
   - p5js Snippets
+  - IntelliSense
 
