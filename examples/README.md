@@ -7,8 +7,8 @@
 * 05 bots and autonomous agents ( 2021-05-14 )
 
 ## software umgebung
-* Chrome Browser
-* Visual Studio Code ( https://code.visualstudio.com/ )
+* Chrome Browser or Firefox
+* Visual Studio Code [download](https://code.visualstudio.com/)
 * VS Code extensions:
   - Live Server
   - p5js Snippets
