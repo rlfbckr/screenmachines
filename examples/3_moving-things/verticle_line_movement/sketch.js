@@ -3,10 +3,10 @@ const maxpoints = 100;
 var t = -50;
 var c = 0;
 var speed = 0.01;
-var transparancy = 100;
+var transparancy = 200;
 var offset = 0;
 var noisescale = 0.1;
-var noiseamp = 30;
+var noiseamp = 40;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
@@ -18,8 +18,8 @@ function setup() {
 }
 
 function draw() {
-  //background(0, 1);
- // stroke(255,100);
+  background(0, 10);
+//  stroke(255,100);
  
  if (c % 3 == 0) stroke(255, 0, 0, transparancy);
   if (c % 3 == 1) stroke(0, 255, 0, transparancy);
@@ -34,7 +34,7 @@ function draw() {
     vertex(x, y);
   }
   endShape();
-  t += 3;
+  t += 1.5;
   c++;
 }
 
