@@ -1,4 +1,4 @@
-# 00 Introduction
+## 00 Introduction
 
-- [Tutle Graphics for p5Js](turtle)
-- [Vera Molnas Pattern ( 4 x 4 Goldenens Qudatat)](vera-pattern)
+- [Tutle Graphics](turtle) for p5.js
+- [Vera Molnas Pattern](vera-pattern) ( 4 x 4 Goldenens Qudatat)
