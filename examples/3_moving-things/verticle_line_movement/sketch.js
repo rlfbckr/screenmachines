@@ -10,7 +10,7 @@ var noiseamp = 40;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
-  background(255);
+  background(0);
   noFill();
   frameRate(100);
   strokeWeight(1);
@@ -18,7 +18,7 @@ function setup() {
 }
 
 function draw() {
-  background(0, 10);
+  background(0, 8);
 //  stroke(255,100);
  
  if (c % 3 == 0) stroke(255, 0, 0, transparancy);
