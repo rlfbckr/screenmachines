@@ -1,20 +1,19 @@
 let osc, playing, freq, amp;
-
+let enable_sound = true;
 var pointsPerCircle = 100;
 var radius = 300;
 var drehung = 0;
 var t = 0;
 var blend = 0.2;
 
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
   frameRate(25);
   osc = new p5.Oscillator('sine');
- // osc.start();
-  osc.freq(freq, 1000);
-  osc.amp(amp, 0.5);
+  osc.start();
+  osc.freq(100, 1000);
+  osc.amp(0.5, 0.5);
   background(0, blend * 255);
 }
 
@@ -30,8 +29,21 @@ function draw() {
     line(width / 2, height / 2, (width / 2) + xpos, (height / 2) + ypos);
   }
   drehung = drehung + 0.09; //map(mouseX,0,width-1,-10,10);
-  radius = 250 + (400 * sin(millis() * 0.03));
-  osc.amp(map(radius, 250, 650, 0.1, 0.8), 0.2);
-  osc.freq(drehung + (10 + (radius / 2)), 0.2);
+  radius = 400 + (300 * sin(millis() * 0.03));
+  osc.amp(map(radius, 250, 700, 0.1, 0.2), 0.05);
+  osc.freq(drehung + (10 + (radius / 4)), 0.001);
   t++;
+}
+
+function keyReleased() {
+ if (key == 's') {
+   if (enable_sound == true) {
+    osc.stop();
+    enable_sound = false;
+   } else if (enable_sound == false) {
+    osc.start();
+    enable_sound = true;
+  }
+ }
+
 }
