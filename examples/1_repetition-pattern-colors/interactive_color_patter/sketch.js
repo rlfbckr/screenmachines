@@ -22,7 +22,7 @@ function draw() {
     var xPos = map(x, 0, punkteProZeile - 1, rand, width - rand);
     for (var y = 0; y < punkteProZeile; y++) {
       var yPos = map(y, 0, punkteProZeile - 1, rand, height - rand);
-      var farbe_mix = lerpColor(farbe_links, farbe_rechts, map(x, 0, punkteProZeile, 0.0, 1.0));
+      var farbe_mix = lerpColor(farbe_links, farbe_rechts, map(x, 0, punkteProZeile-1, 0.0, 1.0));
       fill(farbe_mix);
       rect(xPos, yPos, quadratGroesse, quadratGroesse);
     }
