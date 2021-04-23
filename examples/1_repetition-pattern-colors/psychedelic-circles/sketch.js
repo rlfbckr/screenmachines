@@ -1,5 +1,5 @@
 let osc, playing, freq, amp;
-let enable_sound = true;
+let enable_sound = false;
 var pointsPerCircle = 100;
 var radius = 300;
 var drehung = 0;
@@ -11,7 +11,7 @@ function setup() {
   angleMode(DEGREES);
   frameRate(25);
   osc = new p5.Oscillator('sine');
-  osc.start();
+  //osc.start();
   osc.freq(100, 1000);
   osc.amp(0.5, 0.5);
   background(0, blend * 255);
