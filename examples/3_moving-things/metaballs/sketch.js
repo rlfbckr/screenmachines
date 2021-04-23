@@ -10,7 +10,7 @@ made after reading http://jamie-wong.com/2014/08/19/metaballs-and-marching-squar
 let circles = [];
 let gridPoints = [];
 
-const NUM_BALLS = 10;
+const NUM_BALLS = 6;
 const RES = 16;
 const HALF_RES = RES * 0.5;
 
