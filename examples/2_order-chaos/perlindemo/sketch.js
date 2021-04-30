@@ -8,9 +8,7 @@ var step = 20;
 var noisezoom = 0.008;
 
 function setup() {
- // pixelDensity(1);
   var canvas = createCanvas(windowWidth, windowHeight, WEBGL);
- // setAttributes('antialias', true);
   textSize(30);
   textAlign(CENTER, CENTER);
   angleMode(DEGREES);
@@ -20,13 +18,10 @@ function setup() {
     n = n || o.renderer,
     n && (this.camEYE = this.getPosition(this.camEYE), this.camLAT = this.getCenter(this.camLAT), this.camRUP = this.getUpVector(this.camRUP), n._curCamera.camera(this.camEYE[0], this.camEYE[1], this.camEYE[2], this.camLAT[0], this.camLAT[1], this.camLAT[2], this.camRUP[0], this.camRUP[1], this.camRUP[2]))
   };
-  console.log(Dw);
-  console.log(Dw.EasyCam.INFO);
   easycam = createEasyCam();
 }
 
 function draw() {
-  // scale(0.6);
   push();
   rotateX(40);
   background(0, 0, 255); // hintergrundfarbe
