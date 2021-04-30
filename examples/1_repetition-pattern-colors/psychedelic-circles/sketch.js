@@ -36,14 +36,14 @@ function draw() {
 }
 
 function keyReleased() {
- if (key == 's') {
-   if (enable_sound == true) {
-    osc.stop();
-    enable_sound = false;
-   } else if (enable_sound == false) {
-    osc.start();
-    enable_sound = true;
+  if (key == 's') {
+    if (enable_sound == true) {
+      osc.stop();
+      enable_sound = false;
+    } else if (enable_sound == false) {
+      osc.start();
+      enable_sound = true;
+    }
   }
- }
 
 }
