@@ -1,5 +1,6 @@
 ## 02 order / chaos
 
+- [classicrandomness](classicrandomness)
 - [blobby sausage](blobby-sausage)
 - [Georg Nees by Schotter](georg_nees_schotter)
 - [Georg Nees by Schotter ](georg_nees_schotter-animated)(animated)
