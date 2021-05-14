@@ -3,9 +3,9 @@
   vera molnars quadrat mit linien
 */
 
-var maxpoints = 5; // wieviele punkte
+var maxpoints = 20; // wieviele punkte
 var margin = 100; // wieviel rand (open, unten, rechts, links)
-var snake_max_lenth = 4;
+var snake_max_lenth = 10;
 let snake_pointsx = [];
 let snake_pointsy = [];
 var snakeposx = 0;
@@ -13,7 +13,7 @@ var snakeposy = 0;
 
 function setup() {
   createCanvas(600, 600); // wie gross ist die zeichenfläche
-  frameRate(100);
+  frameRate(25);
 
   snake_pointsx.push(0);
   snake_pointsy.push(0);
@@ -22,7 +22,7 @@ function setup() {
 }
 
 function draw() {
-  background(0,128); // hintergrundfarbe
+  background(0); // hintergrundfarbe
   stroke(255); // stiftfarbe
   strokeWeight(1); // stiftdicke
   /*
@@ -37,15 +37,23 @@ function draw() {
   noFill();
   beginShape();
   for (var i = 0; i < snake_pointsx.length; i++) {
-    vertex(pos2screenX(snake_pointsx[i]),pos2screenY(snake_pointsy[i]));
+    vertex(pos2screenX(snake_pointsx[i]), pos2screenY(snake_pointsy[i]));
   }
   endShape();
-//  ellipse(pos2screenX(snakeposx), pos2screenX(snakeposy), 20, 20);
+  newsnakeposx = snakeposx;
+  newsnakeposy = snakeposy;
+  while ((newsnakeposx == snakeposx || newsnakeposx == snakeposx) && visited(newsnakeposx, newsnakeposy)) {
+    newsnakeposx = constrain(snakeposx + int(random(-2, 2)), 0, maxpoints - 1);
+    newsnakeposy = constrain(snakeposy + int(random(-2, 2)), 0, maxpoints - 1);
+  }
 
-
-  snakeposx = constrain(snakeposx + int(random(-2, 2)), 0, maxpoints-1);
-  snakeposy = constrain(snakeposy + int(random(-2, 2)), 0, maxpoints-1);
-  
+  snakeposx = newsnakeposx;
+  snakeposy = newsnakeposy;
+  if (snake_pointsx.length >= snake_max_lenth) {
+    // alte punkte löschen!!!
+    snake_pointsx.splice(0, 1);
+    snake_pointsy.splice(0, 1);
+  }
   snake_pointsx.push(snakeposx);
   snake_pointsy.push(snakeposy);
 }
@@ -56,4 +64,14 @@ function pos2screenX(x) {
 
 function pos2screenY(y) {
   return map(y, 0, maxpoints - 1, margin, width - margin);
+}
+
+
+function visited(x, y) {
+  for (var i = 0; i < snake_pointsx.length; i++) {
+    if ((x == snake_pointsx[i]) && (y == snake_pointsy[i])) {
+      return 1;
+    }
+  }
+  return 0;
 }
