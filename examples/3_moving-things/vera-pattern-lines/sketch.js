@@ -5,7 +5,7 @@
 
 var maxpoints = 20; // wieviele punkte
 var margin = 100; // wieviel rand (open, unten, rechts, links)
-var snake_max_lenth = 10;
+var snake_max_length = 20;
 let snake_pointsx = [];
 let snake_pointsy = [];
 var snakeposx = 0;
@@ -13,7 +13,7 @@ var snakeposy = 0;
 
 function setup() {
   createCanvas(600, 600); // wie gross ist die zeichenfläche
-  frameRate(25);
+  frameRate(100);
 
   snake_pointsx.push(0);
   snake_pointsy.push(0);
@@ -22,7 +22,8 @@ function setup() {
 }
 
 function draw() {
-  background(0); // hintergrundfarbe
+  background(0,20
+    ); // hintergrundfarbe
   stroke(255); // stiftfarbe
   strokeWeight(1); // stiftdicke
   /*
@@ -49,7 +50,7 @@ function draw() {
 
   snakeposx = newsnakeposx;
   snakeposy = newsnakeposy;
-  if (snake_pointsx.length >= snake_max_lenth) {
+  if (snake_pointsx.length >= snake_max_length) {
     // alte punkte löschen!!!
     snake_pointsx.splice(0, 1);
     snake_pointsy.splice(0, 1);
@@ -68,6 +69,7 @@ function pos2screenY(y) {
 
 
 function visited(x, y) {
+  // wurde 
   for (var i = 0; i < snake_pointsx.length; i++) {
     if ((x == snake_pointsx[i]) && (y == snake_pointsy[i])) {
       return 1;
