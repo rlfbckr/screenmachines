@@ -7,7 +7,7 @@ var maxpoints = 20; // wieviele punkte
 var margin = 100; // wieviel rand (open, unten, rechts, links)
 var snake_max_length = 20;
 let snake_pointsx = [];
-let snake_pointsy = [];
+let snake_pointsy = []; 
 var snakeposx = 0;
 var snakeposy = 0;
 
