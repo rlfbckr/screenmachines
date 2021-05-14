@@ -1,19 +1,20 @@
 /*
   Ralf Baecker 2021
-  simple bot
+  simple ballons
 */
 let myBots = [];
 
 
 function setup() {
-  createCanvas(600, 600); // wie gross ist die zeichenfläche
-  for (var i = 0; i < 100; i++) {
+  createCanvas(windowWidth, windowHeight); // wie gross ist die zeichenfläche
+  for (var i = 0; i < 200; i++) {
     myBots.push(new Bot(random(0, width), height));
   }
+  background(0, 0, 255);
 }
 
 function draw() {
-  background(0, 0, 255);
+  background(0, 0, 255,10);
   for (var i = 0; i < myBots.length; i++) {
     myBots[i].update();
     if (myBots[i].alive == 0) {
@@ -31,7 +32,7 @@ class Bot {
     this.pos = createVector(x, y);
     this.speed = random(0.1, 5);
     this.color = color(random(255), random(255), random(255));
-    this.size = random(2, 30);
+    this.size = random(2, 50);
     this.alive = 1;
   }
 
@@ -48,7 +49,7 @@ class Bot {
 
   draw() {
     // aussehen / zeichen
-    stroke(255);
+    noStroke(); //(255);
     fill(this.color, 128);
     // noFill();
     ellipse(this.pos.x, this.pos.y, this.size, this.size)
