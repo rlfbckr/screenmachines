@@ -17,8 +17,8 @@ function draw() {
   for (var i = 0; i < myBots.length; i++) {
     myBots[i].update();
     if (myBots[i].alive == 0) {
-      myBots.splice(i, 1);
-      myBots.push(new Bot(random(0, width), random(0, height)));
+      myBots.splice(i, 1); // alten bot löschen
+      myBots.push(new Bot(random(0, width), random(0, height))); // neuen bot erzeugen!!
     }
     myBots[i].draw();
 
