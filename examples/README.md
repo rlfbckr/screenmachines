@@ -4,7 +4,7 @@
 * 01 [repetition/pattern/colors](1_repetition-pattern-colors) ( 2021-04-23 )
 * 02 [order/chaos](2_order-chaos) ( 2021-04-30 )
 * 03 [moving things](3_moving-things) ( 2021-05-07 )
-* 05 bots and autonomous agents ( 2021-05-14 )
+* 04 [bots and agents](4_moving-and-things) ( 2021-05-14 )
 
 ## software umgebung
 * Chrome Browser or Firefox
