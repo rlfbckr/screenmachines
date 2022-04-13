@@ -14,6 +14,10 @@
   - p5js Snippets
   - IntelliSense
 * Git
+
+## repository runterladen bzw. clonen
+``git clone https://github.com/rlfbckr/screenmachines.git``
+
 ## link to github
 - [https://github.com/rlfbckr/screenmachines](https://github.com/rlfbckr/screenmachines)
 
