@@ -2,7 +2,7 @@ var anzahlDerLinien = 120;
 var lineWeight = 2;
 var wobble = 10;
 var step = 0;
-var showDebug = false;
+var showDebug = true;
 
 function setup() {
 	createCanvas(windowWidth, windowHeight); // width height
@@ -71,13 +71,14 @@ function onMIDISuccess(midiAccess) {
 		for (i = 0; i < WebMidi.outputs.length; i++) {
 			console.log(i + ": " + WebMidi.outputs[i].name);
 		}
-		input = WebMidi.inputs[2];
+		input = WebMidi.inputs[1];
 		// Listen to control change message on all channels
 		input.addListener('controlchange', "all",
 			function (e) {
 				console.log("Received 'controlchange' message.", e);
 				if (e.controller.number == 19) {
 					anzahlDerLinien = int(map(e.data[2], 0, 127, 3, 200));
+					console.log("hi");
 				}
 				if (e.controller.number == 18) {
 					lineWeight = map(e.data[2], 0, 127, 0.5, 200.0);
