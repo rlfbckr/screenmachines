@@ -10,15 +10,15 @@ int main() {
     while (1) {
         int r = rand() % 4;
         if (r == 0) {
-            putchar('*');
+            putchar('/');
         } else if (r == 1) {
             putchar(' ');
         } else if (r == 2) {
-            putchar('-');
+            putchar('\\');
         } else {
-            putchar('|');
+            putchar(' ');
         }
-        usleep(100);
+        usleep(500);
     }
     return 0;
 }
