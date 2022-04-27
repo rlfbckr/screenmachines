@@ -4,7 +4,6 @@ function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(255);
 	noLoop();
-
 }
 
 function draw() { // wird dauernd im loop aufgerufen
