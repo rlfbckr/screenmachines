@@ -1,4 +1,4 @@
-var anzahlDerLinien = 100;
+var anzahlDerLinien = 50;
 var step = 0;
 
 function setup() {
@@ -18,9 +18,9 @@ function draw() {
 	for (var y = 0; y <= height; y = y + linienAbstand) {
 		line(0, y+(step%5), width, y+(step%5));
 	}
-	step=step+1;
-	fill(255,0,0);
-	text("step="+step+"\nstep%5="+(step%5),width/2,height/2);
+//	step=step+1;
+//	fill(255,0,0);
+//	text("step="+step+"\nstep%5="+(step%5),width/2,height/2);
 }
 
 
