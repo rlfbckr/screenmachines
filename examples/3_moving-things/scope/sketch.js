@@ -1,6 +1,7 @@
 var time = 0;
 var radius = 500;
 var speed = 0.1;
+var strokeweight = 5;
 var x_drift = 0.9;
 var y_drift = 1.1;
 var r = 255;
@@ -24,7 +25,7 @@ function draw() {
   var ypos = (height / 2) + (cos(time * y_drift) * radius);
   //stroke(128);
   //line((width/2), (height/2),(width/2)+xpos, (height/2)+ypos);
-  strokeWeight(50);
+  strokeWeight(strokeweight);
   stroke(r, g, b, 255);
   // ellipse((width / 2) + xpos, (height / 2) + ypos, 20);
   if (xpos_last != 0 && ypos_last != 0) {
@@ -42,11 +43,12 @@ function draw() {
     g = random(40, 255);
     b = random(40, 255);
     radius = random(100, 500);
+strokeweight = random(2,19);
     xpos_last = 0;
     ypos_last = 0;
     lastchange = millis()
   }
   noStroke();
   fill(255, 0, 255);
-  text("millis=" + int(millis()) + "  lastchange=" + int(lastchange), 40, 40);
+ // text("millis=" + int(millis()) + "  lastchange=" + int(lastchange), 40, 40);
 }
