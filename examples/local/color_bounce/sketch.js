@@ -1,17 +1,22 @@
-var hintergrund_farbe = 0;
-var fade_direction = +1;
+let a = "das ist eine variable die global ist";
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
+	noLoop();
 }
 
 function draw() { // wird dauernd im loop aufgerufen
-	background(hintergrund_farbe);
-	hintergrund_farbe=hintergrund_farbe+fade_direction;
-	if (hintergrund_farbe >= 255) {
-		fade_direction = -1;
+	var lokal = "blabla";
+	let a = "hello";
+ 
+	for (let a = 0; a<10;a++) {
+		print(a);
 	}
-	if (hintergrund_farbe <=0) {
-		fade_direction = 1;
-	}
+	print(a);
+	makesomething();
+
+}
+
+
+function makesomething() {
 }
