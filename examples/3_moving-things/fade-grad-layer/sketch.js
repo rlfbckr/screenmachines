@@ -35,3 +35,15 @@ function draw() { // wird dauernd im loop aufgerufen
 	text("xposition_target=" + int(xposition_target), 40, 130);
 }
 
+class layer {
+let xposition = 0;
+let xpos_target = 0;
+	constructor() {
+
+	}
+
+	draw() {
+
+
+	}
+}

@@ -41,7 +41,7 @@ class Bot {
   update() {
     // verhalten
     // bouncing ballls
-    //this.position.add(this.velocity);
+    this.position.add(this.velocity);
     // einfallswinkel = ausfallswinkel
     if (this.position.x <= 0) this.velocity.x*=-1;
     if (this.position.x >= width) this.velocity.x*=-1;
