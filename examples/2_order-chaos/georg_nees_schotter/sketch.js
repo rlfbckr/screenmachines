@@ -13,10 +13,11 @@ let h = 19;
 function setup() {
   createCanvas(520, 800);
   rectMode(CENTER);
+frameRate(1);
 }
 
 function draw() {
-  randomSeed(1);
+ // randomSeed(1);
   noFill();
   background(255);
   push();
