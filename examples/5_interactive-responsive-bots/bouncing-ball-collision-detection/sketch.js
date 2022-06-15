@@ -9,7 +9,7 @@ let lastspawn = 0;
 function setup() {
   createCanvas(windowWidth, windowHeight); // wie gross ist die zeichenfläche
  // randomSeed(1);
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 100; i++) {
     bot = new Bot(random(0, width), 0, random(10, 40));
     myBots.push(bot);
   }

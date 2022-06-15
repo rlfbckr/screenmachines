@@ -1,11 +1,9 @@
 {
-    "liveServer.settings.port": 5501,
-    "liveServer.settings.root": "/",
-    "liveServer.settings.CustomBrowser": "chrome",
-    "liveServer.settings.https": {
-      "enable": true,
-      "cert": "c:\\local\\openssl\\localhost.pem",
-      "key": "c:\\local\\openssl\\localhost.key",
-      "passphrase": "1234test"
-    }
- }
+  "liveServer.settings.port": 5501,
+  "liveServer.settings.https": {
+    "enable": true,
+    "cert": "/home/ralf/local/openssl/localhost.pem",
+    "key": "/home/ralf/local/openssl/localhost.key",
+    "passphrase": "1234test"
+  }
+}

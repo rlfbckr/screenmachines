@@ -33,8 +33,8 @@ class Bot {
     this.position = createVector(x, y);
     this.velocity = createVector(random(-5, 5), random(-5, 5));
 
-    this.color = color(255);
-    this.size = 50;
+    this.color = color(random(255),random(255,random(255)));
+    this.size = 200;
     this.alive = 1;
   }
 
